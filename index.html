@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incremental</title>
+<link href="https://fonts.cdnfonts.com/css/monospace-typewriter" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <div id="topbar">
+    <h1>Incremental</h1>
+    <span class="spacer"></span>
+    <span class="mny-display">MONEY: <span id="top-mny">0</span></span>
+  </div>
+
+  <div id="sidebar-left">
+    <div class="tab-bar" id="left-tabs">
+      <button class="tab-btn active" data-tab="shop" onclick="switchLeftTab('shop')">Shop</button>
+      <button class="tab-btn" data-tab="upgrades" onclick="switchLeftTab('upgrades')">Upg</button>
+      <button class="tab-btn" data-tab="dims" onclick="switchLeftTab('dims')">Dims</button>
+    </div>
+    <div id="left-contents" style="flex:1;overflow-y:auto;">
+      <div class="tab-content active" data-tab="shop">
+        <div class="section-header">Producers</div>
+        <div id="shop-list"></div>
+      </div>
+      <div class="tab-content" data-tab="upgrades">
+        <div class="section-header">Upgrades</div>
+        <div id="upg-list"></div>
+      </div>
+      <div class="tab-content" data-tab="dims">
+        <div class="section-header">Dimensions</div>
+        <div class="dim-panel" id="dim-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-area">
+    <div class="main-click-area">
+      <div id="mny-val" style="font-size:22px;letter-spacing:1px;">0</div>
+      <div class="mps-display"><span id="mps-val">0/s</span></div>
+      <button class="click-btn" onclick="clickMoney()">CLICK</button>
+    </div>
+  </div>
+
+  <div id="sidebar-right">
+    <div class="tab-bar" id="right-tabs">
+      <button class="tab-btn active" data-tab="stats" onclick="switchRightTab('stats')">Stats</button>
+      <button class="tab-btn" data-tab="inf" onclick="switchRightTab('inf')">Inf</button>
+      <button class="tab-btn" data-tab="eter" onclick="switchRightTab('eter')">Eter</button>
+      <button class="tab-btn" data-tab="ach" onclick="switchRightTab('ach')">Ach</button>
+      <button class="tab-btn" data-tab="options" onclick="switchRightTab('options')">Opt</button>
+    </div>
+    <div id="right-contents" style="flex:1;overflow-y:auto;">
+      <div class="tab-content active" data-tab="stats">
+        <div class="section-header">Statistics</div>
+        <div id="stats-body"></div>
+      </div>
+      <div class="tab-content" data-tab="inf">
+        <div id="inf-panel"></div>
+      </div>
+      <div class="tab-content" data-tab="eter">
+        <div id="eter-panel"></div>
+      </div>
+      <div class="tab-content" data-tab="ach">
+        <div class="section-header">Achievements</div>
+        <div id="ach-list"></div>
+      </div>
+      <div class="tab-content" data-tab="options">
+        <div class="section-header">Options</div>
+        <div id="options-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="statusbar">
+    <span>Incremental v1.0</span>
+    <span>|</span>
+    <span id="status-time">00:00:00</span>
+    <span class="spacer"></span>
+    <span>Auto-save: 30s</span>
+  </div>
+
+</div>
+
+<div class="notify" id="notify"></div>
+
+<script src="ExpantaNum.js"></script>
+<script src="achievements.js"></script>
+<script src="game.js"></script>
+<script>
+  setInterval(function() {
+    var el = document.getElementById("status-time");
+    if (el && statistics) {
+      var t = Math.floor(statistics.totalTime);
+      var h = Math.floor(t/3600), m = Math.floor((t%3600)/60), s = t%60;
+      el.textContent = String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
